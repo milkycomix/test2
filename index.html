@@ -1,26 +1,68 @@
-<script>
-    function getUTMParams() {
-        const params = new URLSearchParams(window.location.search);
-        let utmData = {};
-        ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(param => {
-            if (params.has(param)) {
-                utmData[param] = params.get(param);
-            }
-        });
-        return utmData;
-    }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f4f8;
+            color: #333;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
     
-    function saveAndRedirect() {
-        const utmParams = getUTMParams();
-        if (Object.keys(utmParams).length > 0) {
-            localStorage.setItem('utm_data', JSON.stringify(utmParams));
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6LWC1DCLF4"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-6LWC1DCLF4'); // 🔹 Замени на свой GA4 ID
+
+        function getUTMParams() {
+            const params = new URLSearchParams(window.location.search);
+            let utmData = {};
+            ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(param => {
+                if (params.has(param)) {
+                    utmData[param] = params.get(param);
+                }
+            });
+            return utmData;
         }
         
-        const targetURL = "https://www.patreon.com/Boobasuki";
-        setTimeout(() => {
-            window.location.href = targetURL;
-        }, 3000); // 3-секундная задержка
-    }
-    
-    window.onload = saveAndRedirect;
-</script>
+        function saveAndRedirect() {
+            const utmParams = getUTMParams();
+            if (Object.keys(utmParams).length > 0) {
+                localStorage.setItem('utm_data', JSON.stringify(utmParams));
+
+                // 🔥 Отправляем данные в Google Analytics
+                gtag('event', 'utm_tracking', utmParams);
+            }
+            
+            const targetURL = "https://www.patreon.com/Boobasuki"; // Замени на свой сайт
+            setTimeout(() => {
+                window.location.href = targetURL;
+            }, 3000); // 3-секундная задержка перед редиректом
+        }
+
+        window.onload = saveAndRedirect;
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Please wait, redirecting...</h2>
+    </div>
+</body>
+</html>
