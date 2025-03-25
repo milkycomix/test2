@@ -42,19 +42,18 @@
             return utmData;
         }
         
-        function saveAndRedirect() {
+        function sendUTMToGA() {
             const utmParams = getUTMParams();
-            if (Object.keys(utmParams).length > 0) {
-                localStorage.setItem('utm_data', JSON.stringify(utmParams));
-
-                // 🔥 Отправляем данные в Google Analytics
-                gtag('event', 'utm_tracking', utmParams);
-            }
-            
-            const targetURL = "https://www.patreon.com/Boobasuki"; // Замени на свой сайт
+            console.log("Sending UTM to GA:", utmParams); // 🔹 Проверка в консоли
+            gtag('event', 'utm_tracking', utmParams);
+        }
+        
+        function saveAndRedirect() {
+            sendUTMToGA(); // ✅ Сначала отправляем UTM в GA
+            const targetURL = "https://www.patreon.com/Boobasuki"; 
             setTimeout(() => {
                 window.location.href = targetURL;
-            }, 3000); // 3-секундная задержка перед редиректом
+            }, 3000);
         }
 
         window.onload = saveAndRedirect;
