@@ -23,14 +23,22 @@
         }
     </style>
     
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6LWC1DCLF4"></script>
+    <!-- Matomo -->
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){ dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-6LWC1DCLF4'); // 🔹 Замени на свой GA4 ID
+      var _paq = window._paq = window._paq || [];
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u="https://milkycomix.matomo.cloud/";
+        _paq.push(['setTrackerUrl', u+'matomo.php']);
+        _paq.push(['setSiteId', '1']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.async=true; g.src='https://cdn.matomo.cloud/milkycomix.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
+      })();
+    </script>
+    <!-- End Matomo Code -->
 
+    <script>
         function getUTMParams() {
             const params = new URLSearchParams(window.location.search);
             let utmData = {};
@@ -42,14 +50,7 @@
             return utmData;
         }
         
-        function sendUTMToGA() {
-            const utmParams = getUTMParams();
-            console.log("Sending UTM to GA:", utmParams); // 🔹 Проверка в консоли
-            gtag('event', 'utm_tracking', utmParams);
-        }
-        
         function saveAndRedirect() {
-            sendUTMToGA(); // ✅ Сначала отправляем UTM в GA
             const targetURL = "https://www.patreon.com/Boobasuki"; 
             setTimeout(() => {
                 window.location.href = targetURL;
