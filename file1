@@ -1,9 +1,27 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirect...</title>
+    <title>Redirecting...</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f4f8;
+            color: #333;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
     <script>
         function getUTMParams() {
             const params = new URLSearchParams(window.location.search);
@@ -25,14 +43,15 @@
             const targetURL = "www.patreon.com/Boobasuki"; // 
             setTimeout(() => {
                 window.location.href = targetURL;
-            }, 3000); // Задержка 3 секунды
+            }, 3000); // 3-second delay
         }
         
         window.onload = saveAndRedirect;
     </script>
 </head>
 <body>
-    <h2>Подождите, идет перенаправление...</h2>
+    <div class="container">
+        <h2>Please wait, redirecting...</h2>
+    </div>
 </body>
 </html>
-  
