@@ -1,57 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirecting...</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f4f8;
-            color: #333;
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-        .container {
-            padding: 20px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-    </style>
-    <script>
-        function getUTMParams() {
-            const params = new URLSearchParams(window.location.search);
-            let utmData = {};
-            ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(param => {
-                if (params.has(param)) {
-                    utmData[param] = params.get(param);
-                }
-            });
-            return utmData;
-        }
-        
-        function saveAndRedirect() {
-            const utmParams = getUTMParams();
-            if (Object.keys(utmParams).length > 0) {
-                localStorage.setItem('utm_data', JSON.stringify(utmParams));
+<script>
+    function getUTMParams() {
+        const params = new URLSearchParams(window.location.search);
+        let utmData = {};
+        ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(param => {
+            if (params.has(param)) {
+                utmData[param] = params.get(param);
             }
-            
-            const targetURL = "https://www.patreon.com/Boobasuki"; 
-            setTimeout(() => {
-                window.location.href = targetURL;
-            }, 3000); // 3-second delay
+        });
+        return utmData;
+    }
+    
+    function saveAndRedirect() {
+        const utmParams = getUTMParams();
+        if (Object.keys(utmParams).length > 0) {
+            localStorage.setItem('utm_data', JSON.stringify(utmParams));
         }
         
-        window.onload = saveAndRedirect;
-    </script>
-</head>
-<body>
-    <div class="container">
-        <h2>Please wait, redirecting...</h2>
-    </div>
-</body>
-</html>
+        const targetURL = "https://www.patreon.com/Boobasuki";
+        setTimeout(() => {
+            window.location.href = targetURL;
+        }, 3000); // 3-секундная задержка
+    }
+    
+    window.onload = saveAndRedirect;
+</script>
